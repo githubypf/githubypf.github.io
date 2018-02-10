@@ -1,45 +1,119 @@
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>Title</title>
-            <script src="jquery-3.2.0.min.js"></script>
-            <style>
-                #url{
-                    padding:5px;
-                    width:100%;
-                }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+   <title>bing wallpaper get from  yangpf china</title>
+     <link rel="stylesheet" href="./css/amazeui.css">
+    <style>
+        .ntn{
+            height: 5rem;
+            padding: 1rem;
+        }
+       .btn1{
+         float: left;
+         width: 30%;
+         }
+      .btn2{
+        float: right;
+        width: 30%;
+      }
+      #txt{
+        font-size: 1rem;
+        text-align: center
+     }
+     #b{
+         text-align: center
+     }
+     title{
+         font-size: 2rem
+     }
+    </style>
+</head>
+<body>
+        <title> bing wallpaper get</title>
+<div class="wallpaper">
+     
+       <figure data-am-widget="figure"
+        class="am am-figure am-figure-default "
+           data-am-figure="{  pureview: 'true' }">
+              <img id="img" 
+           />
+                <figcaption id="txt" class="am-figure-capition-btm">
+                </figcaption>
+
+      </figure>
+      <div class="ntn">
+      <button type="button" id="add" class="btn1 am-btn am-btn-default am-radius am-btn-secondary">下一张</button>
+      <button type="button" id="sub" class="btn2 am-btn am-btn-default am-radius am-btn-secondary">上一张</button>
+    </div>
+      <p id="b">Copyright 2018-2019 chaofeng.xyz yangpf/2018-02-10</p>
+</div>
+    
+    
+</body>
+
+</html>
+<script src="./js/jquery-3.2.0.min.js"></script>
+<script src="./js/amazeui.js"></script>
+<script>
+
+var test = document.getElementById('img');
+
+test.dataset.rel = "https://www.bing.com/az/hprichbg/rb/BonifacioCorsica_ZH-CN12276076394_1920x1080.jpg";
 
 
-            </style>
-        </head>
-        <body>
+ $(function () { 
+            
+            $.get("https://bird.ioliu.cn/v1/?url=http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1", function (data) {
+                var text = data.images[0].copyright;
+                var imgSrc = 'https://www.bing.com' + data.images[0].url
+                $('#img').attr('src', imgSrc)
+                $('#txt').html(text)
+            }, 'json');
+        });
+   var urlIndex = 0
+     $("#add").click(function(){
+        urlIndex++;
+        url1 ="http://www.bing.com/HPImageArchive.aspx?format=js&idx=" + urlIndex + "&n=1"
+        if(urlIndex > 7 ){
+            alert("没有图片了")
+            urlIndex--;
+        }else{
+            $.get('https://bird.ioliu.cn/v1/?url=' + url1, function (data) {
+               
+                var text = data.images[0].copyright;
+                var imgSrc = 'https://www.bing.com' + data.images[0].url
+                $('#img').attr('src', imgSrc)
+                $('.am-img-loaded').attr('src', imgSrc)
+                $('#txt').html(text)
 
-        <input type="text"
-               id='url'
-               value="http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1">
-        <input type="button"
-               id="load"
-               value="ajax请求json数据">
-
-        <div class="content">
-            <img  id="img">
-        </div>
-
-        </body>
-        </html>
-        <script>
-            $(function(){
-                $(document).on('click','#load',function(){
-                        var url = $('#url').val();
-                        $.get('https://bird.ioliu.cn/v1/?url=' + url,function(data){
-
-                            var imgSrc = 'https://www.bing.com' + data.images[0].url
-
-                            //     $('.content').append(imgSrc)
-                            $('#img').attr('src',imgSrc)
-
-                        },'json');
-                });
-            });
-        </script>
+            }, 'json');
+        }
+     })
+     $("#sub").click(function(){
+        urlIndex--;
+        url1 ="http://www.bing.com/HPImageArchive.aspx?format=js&idx=" + urlIndex + "&n=1"
+        if(urlIndex < -1 ){
+            alert("没有图片了")
+            urlIndex++
+        }else{
+            $.get('https://bird.ioliu.cn/v1/?url=' + url1, function (data) {
+             
+               
+                var text = data.images[0].copyright;
+                var imgSrc = 'https://www.bing.com' + data.images[0].url
+                $('#img').attr('src', imgSrc)
+               
+                $('.am-img-loaded').attr('src', imgSrc)
+                $('#txt').html(text)
+            }, 'json');
+        }
+     })
+    
+       
+</script>
