@@ -1,0 +1,45 @@
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Title</title>
+            <script src="jquery-3.2.0.min.js"></script>
+            <style>
+                #url{
+                    padding:5px;
+                    width:100%;
+                }
+
+
+            </style>
+        </head>
+        <body>
+
+        <input type="text"
+               id='url'
+               value="http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1">
+        <input type="button"
+               id="load"
+               value="ajax请求json数据">
+
+        <div class="content">
+            <img  id="img">
+        </div>
+
+        </body>
+        </html>
+        <script>
+            $(function(){
+                $(document).on('click','#load',function(){
+                        var url = $('#url').val();
+                        $.get('https://bird.ioliu.cn/v1/?url=' + url,function(data){
+
+                            var imgSrc = 'https://www.bing.com' + data.images[0].url
+
+                            //     $('.content').append(imgSrc)
+                            $('#img').attr('src',imgSrc)
+
+                        },'json');
+                });
+            });
+        </script>
