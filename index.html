@@ -79,6 +79,7 @@ p {
         font-size: 1rem;
         text-align: center;
         color: cornsilk;
+        height: 3rem;
          }
         #b{
           text-align: center;
@@ -101,8 +102,8 @@ p {
                 </figcaption>
       </figure>
       <div class="ntn">
-      <button type="button" id="add" class="btn1 am-btn am-btn-default am-radius am-btn-secondary">下一张</button>
-      
+      <button type="button" id="add" class="btn1 am-btn am-btn-primary am-btn-default am-radius am-btn-secondary">下一张</button>
+     
 <div id="clock">
         <p class="date">{{ date }}</p>
         <p class="time">{{ time }}</p>
@@ -122,11 +123,11 @@ p {
 <script src="./js/jquery-3.2.0.min.js"></script>
 <script src="./js/amazeui.js"></script>
 <script>
+      
 
 var test = document.getElementById('img');
 
-test.dataset.rel = "https://www.bing.com/az/hprichbg/rb/BonifacioCorsica_ZH-CN12276076394_1920x1080.jpg";
-
+test.dataset.rel = "https://www.bing.com/az/hprichbg/rb/SiberianJay_ZH-CN8167378429_1920x1080.jpg";
 
  $(function () { 
             
@@ -134,6 +135,7 @@ test.dataset.rel = "https://www.bing.com/az/hprichbg/rb/BonifacioCorsica_ZH-CN12
                 var text = data.images[0].copyright;
                 var imgSrc = 'https://www.bing.com' + data.images[0].url
                 $('#img').attr('src', imgSrc)
+                $('.am-img-loaded').attr('src', imgSrc)
                 $('#txt').html(text)
             }, 'json');
         });
@@ -142,8 +144,8 @@ test.dataset.rel = "https://www.bing.com/az/hprichbg/rb/BonifacioCorsica_ZH-CN12
         urlIndex++;
         url1 ="http://www.bing.com/HPImageArchive.aspx?format=js&idx=" + urlIndex + "&n=1"
         if(urlIndex > 7 ){
-            alert("没有图片了")
-            urlIndex--;
+            $('#add').alert("没有图片了")
+         urlIndex--;
         }else{
             $.get('https://bird.ioliu.cn/v1/?url=' + url1, function (data) {
                
@@ -160,7 +162,7 @@ test.dataset.rel = "https://www.bing.com/az/hprichbg/rb/BonifacioCorsica_ZH-CN12
         urlIndex--;
         url1 ="http://www.bing.com/HPImageArchive.aspx?format=js&idx=" + urlIndex + "&n=1"
         if(urlIndex < -1 ){
-            alert("没有图片了")
+             
             urlIndex++
         }else{
             $.get('https://bird.ioliu.cn/v1/?url=' + url1, function (data) {
